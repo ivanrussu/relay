@@ -1,0 +1,19 @@
+{
+  "name": "relay",
+  "version": "0.0.1",
+  "description": "POST messages through websockets",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js serve",
+    "make": "node index.js make"
+  },
+  "author": "Ivan Russu <2ivanrussu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "sqlite3": "^4.2.0",
+    "uuid": "^8.0.0"
+  }
+}
