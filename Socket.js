@@ -15,7 +15,7 @@ class Socket {
             return;
         }
 
-        let response = await apiKey.send('subscribe', apiKey, {
+        let response = await apiKey.send('subscribe', {
             channels,
             payload
         });
