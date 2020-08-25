@@ -32,6 +32,18 @@ class Socket {
         });
     }
 
+    async handleUnsubscription(socket, data, apiKey) {
+        let channels = data.channels || [];
+        if(channels.length === 0) {
+            return;
+        }
+
+        channels.forEach((channel) => {
+            let room = apiKey.client_id + '/' + channel;
+            socket.leave(room);
+        });
+    }
+
     async makeRequest(apiKey, data, callback) {
         let response = await apiKey.send('request', data);
         if (callback) {
@@ -55,6 +67,22 @@ class Socket {
                     socket.on('request', (data, callback) => {
                         this.makeRequest(apiKey, data, callback);
                     });
+
+                    if (callback) {
+                        callback(true);
+                    }
+                } catch (e) {
+                    if(callback) {
+                        callback({
+                            error: e.message
+                        });
+                    }
+                }
+            });
+
+            socket.on('unsubscribe', async (data, callback) => {
+                try {
+                    await this.handleUnsubscription(socket, data, apiKey)
 
                     if (callback) {
                         callback(true);
